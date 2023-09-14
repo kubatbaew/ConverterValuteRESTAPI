@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from apps.converter.models import Converter
+
+
+@admin.register(Converter)
+class ConverterAdmin(admin.ModelAdmin):
+    list_display = ('from_currency', 'to_currency',)
+    list_display_links = ['from_currency']
