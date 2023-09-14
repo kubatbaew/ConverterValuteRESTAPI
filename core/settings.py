@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     
     'rest_framework',
     'apps.converter',
+    
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
