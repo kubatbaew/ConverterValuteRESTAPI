@@ -1,5 +1,6 @@
 from pathlib import Path
 import dj_database_url
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -8,12 +9,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-r*@wqr%&tq2+vs@=h4cffk=ch_hxb-7be-(s*(a7ltby@w%$_3'
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
+# 'django-insecure-r*@wqr%&tq2+vs@=h4cffk=ch_hxb-7be-(s*(a7ltby@w%$_3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -73,7 +76,8 @@ DATABASES = {
     }
 }
 
-DATABASES['default'] = dj_database_url.parse("postgres://kubatbaew_django_render_user:hkaZ4NvlvG1Qp9YVLJexByeyQqUPwVmL@dpg-ckol9dnkc2qc73c5h5o0-a.oregon-postgres.render.com/kubatbaew_django_render")
+database_url = os.environ.get("DATABASE_URL")
+DATABASES['default'] = dj_database_url.parse(database_url)
 
 
 # Password validation
